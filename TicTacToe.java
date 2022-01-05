@@ -1,4 +1,4 @@
-import javax.swing.text.Position;
+import java.util.Scanner;
 
 public class TicTacToe {
 
@@ -26,7 +26,7 @@ public static void main(String[] args) {
     };
 
     printBoard(gameBoard);
-    updateBoard(1, 2, gameBoard );
+    playerMove(gameBoard);
 
 }
 
@@ -101,6 +101,16 @@ public static void updateBoard(int position, int player, char[][] gameBoard) {
         default: 
             break;
     }
-
 }
+
+public static void playerMove(char[][] gameBoard) {
+
+    System.out.println("Scegli una casella (1-9)");
+    Scanner input = new Scanner(System.in);
+
+    int move = input.nextInt();
+
+    updateBoard(move, 1, gameBoard);
+}
+
 }
