@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToe {
@@ -27,8 +28,9 @@ public static void main(String[] args) {
 
     printBoard(gameBoard);
     playerMove(gameBoard);
+    computerMove(gameBoard);
     playerMove(gameBoard);
-
+    computerMove(gameBoard);
 }
 
 public static void printBoard(char[][] gameBoard) {
@@ -195,7 +197,23 @@ public static boolean isValidMove(int move, char[][] gameBoard) {
 
 }
 
+public static void computerMove(char[][] gameBoard) {
 
+    Random rand = new Random();
+
+    int pcMove = rand.nextInt(9)+1;
+
+    boolean result =isValidMove(pcMove, gameBoard);
+
+    while (!result) {
+
+        int move = rand.nextInt(9)+1;
+        result =isValidMove(move, gameBoard);
+    }
+
+    System.out.println("Il computer ha scelto la casella " + pcMove);
+    updateBoard(pcMove, 2, gameBoard);
+}
 
 
 }
