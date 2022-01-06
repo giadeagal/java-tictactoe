@@ -3,6 +3,10 @@ import java.util.Scanner;
 
 public class TicTacToe {
 
+    static int playerScore = 0;
+    static int computerScore = 0;
+    static Scanner input = new Scanner(System.in);
+
 /*    
         _ | _ | _
         _ | _ | _
@@ -25,24 +29,56 @@ public static void main(String[] args) {
         {'_', '|', '_', '|', '_'},
         {' ', '|', ' ', '|', ' '}
     };
-
-    boolean gameOver = false;
-
     printBoard(gameBoard);
 
-    while (!gameOver) {
-        playerMove(gameBoard);
-        gameOver = isGameOver(gameBoard);
-        if (gameOver){
-            break;
+    boolean gameOver = false;
+    boolean playAgain = true;
+
+    while (playAgain) {
+        
+        while (!gameOver) {
+
+            playerMove(gameBoard);
+            gameOver = isGameOver(gameBoard);
+            if (gameOver){
+                break;
+            }
+    
+            computerMove(gameBoard);
+            gameOver = isGameOver(gameBoard);
+            if (gameOver){
+                break;
+            }
         }
 
-        computerMove(gameBoard);
-        gameOver = isGameOver(gameBoard);
-        if (gameOver){
-            break;
+        System.out.println("Punteggio giocatore: " + playerScore);
+        System.out.println("Punteggio computer: " + computerScore);
+        System.out.println("Vuoi fare un'altra partita? Y/N");
+        input.nextLine();
+        String result = input.nextLine();
+
+        switch (result) {
+
+            case "Y":
+            case "y": 
+                playAgain = true;
+                System.out.println("Ok, ripartiamo!");
+                resetBoard(gameBoard);
+                gameOver = false;
+                printBoard(gameBoard);
+                break;
+            case "N":
+            case "n":
+                playAgain = false;
+                System.out.println("Ok, ciao ciao!");
+                break;
+            default: 
+                break;
         }
-    }
+
+
+    }   
+
 }
 
 public static void printBoard(char[][] gameBoard) {
@@ -123,7 +159,6 @@ public static void updateBoard(int position, int player, char[][] gameBoard) {
 public static void playerMove(char[][] gameBoard) {
 
     System.out.println("Scegli una casella (1-9)");
-    Scanner input = new Scanner(System.in);
 
     int move = input.nextInt();
 
@@ -234,31 +269,37 @@ public static boolean isGameOver(char[][] gameBoard) {
     if(gameBoard[0][0] == 'X' && gameBoard[0][2] == 'X' && gameBoard[0][4] == 'X') {
 
         System.out.println("Il giocatore ha vinto!");
+        playerScore++;
         return true;
     }
     if(gameBoard[0][0] == 'O' && gameBoard[0][2] == 'O' && gameBoard[0][4] == 'O') {
 
         System.out.println("Il computer ha vinto!");
+        computerScore++;
         return true;
     }
     if(gameBoard[1][0] == 'X' && gameBoard[1][2] == 'X' && gameBoard[1][4] == 'X') {
 
         System.out.println("Il giocatore ha vinto!");
+        playerScore++;
         return true;
     }
     if(gameBoard[1][0] == 'O' && gameBoard[1][2] == 'O' && gameBoard[1][4] == 'O') {
 
         System.out.println("Il computer ha vinto!");
+        computerScore++;
         return true;
     }
     if(gameBoard[2][0] == 'X' && gameBoard[2][2] == 'X' && gameBoard[2][4] == 'X') {
 
         System.out.println("Il giocatore ha vinto!");
+        playerScore++;
         return true;
     }
     if(gameBoard[2][0] == 'O' && gameBoard[2][2] == 'O' && gameBoard[2][4] == 'O') {
 
         System.out.println("Il computer ha vinto!");
+        computerScore++;
         return true;
     }
 
@@ -266,31 +307,37 @@ public static boolean isGameOver(char[][] gameBoard) {
     if(gameBoard[0][0] == 'X' && gameBoard[1][0] == 'X' && gameBoard[2][0] == 'X') {
 
         System.out.println("Il giocatore ha vinto!");
+        playerScore++;
         return true;
     }
     if(gameBoard[0][0] == 'O' && gameBoard[1][0] == 'O' && gameBoard[2][0] == 'O') {
 
         System.out.println("Il computer ha vinto!");
+        computerScore++;
         return true;
     }
     if(gameBoard[0][2] == 'X' && gameBoard[1][2] == 'X' && gameBoard[2][2] == 'X') {
 
         System.out.println("Il giocatore ha vinto!");
+        playerScore++;
         return true;
     }
     if(gameBoard[0][2] == 'O' && gameBoard[1][2] == 'O' && gameBoard[2][2] == 'O') {
 
         System.out.println("Il computer ha vinto!");
+        computerScore++;
         return true;
     }
     if(gameBoard[0][4] == 'X' && gameBoard[1][4] == 'X' && gameBoard[2][4] == 'X') {
 
         System.out.println("Il giocatore ha vinto!");
+        playerScore++;
         return true;
     }
     if(gameBoard[0][4] == 'O' && gameBoard[1][4] == 'O' && gameBoard[2][4] == 'O') {
 
         System.out.println("Il computer ha vinto!");
+        computerScore++;
         return true;
     }
 
@@ -298,21 +345,25 @@ public static boolean isGameOver(char[][] gameBoard) {
     if(gameBoard[0][0] == 'X' && gameBoard[1][2] == 'X' && gameBoard[2][4] == 'X') {
 
         System.out.println("Il giocatore ha vinto!");
+        playerScore++;
         return true;
     }
     if(gameBoard[0][0] == 'O' && gameBoard[1][2] == 'O' && gameBoard[2][4] == 'O') {
 
         System.out.println("Il computer ha vinto!");
+        computerScore++;
         return true;
     }
     if(gameBoard[2][0] == 'X' && gameBoard[1][2] == 'X' && gameBoard[0][4] == 'X') {
 
         System.out.println("Il giocatore ha vinto!");
+        playerScore++;
         return true;
     }
     if(gameBoard[2][0] == 'O' && gameBoard[1][2] == 'O' && gameBoard[0][4] == 'O') {
 
         System.out.println("Il computer ha vinto!");
+        computerScore++;
         return true;
     }
 
@@ -328,4 +379,17 @@ public static boolean isGameOver(char[][] gameBoard) {
 
     return false;
 }
+
+public static void resetBoard(char[][] gameBoard) {
+    gameBoard[0][0] = '_';
+    gameBoard[0][2] = '_';
+    gameBoard[0][4] = '_';
+    gameBoard[1][0] = '_';
+    gameBoard[1][2] = '_';
+    gameBoard[1][4] = '_';
+    gameBoard[2][0] = ' ';
+    gameBoard[2][2] = ' ';
+    gameBoard[2][4] = ' ';
+}
+
 }
