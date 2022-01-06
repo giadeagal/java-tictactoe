@@ -26,11 +26,23 @@ public static void main(String[] args) {
         {' ', '|', ' ', '|', ' '}
     };
 
+    boolean gameOver = false;
+
     printBoard(gameBoard);
-    playerMove(gameBoard);
-    computerMove(gameBoard);
-    playerMove(gameBoard);
-    computerMove(gameBoard);
+
+    while (!gameOver) {
+        playerMove(gameBoard);
+        gameOver = isGameOver(gameBoard);
+        if (gameOver){
+            break;
+        }
+
+        computerMove(gameBoard);
+        gameOver = isGameOver(gameBoard);
+        if (gameOver){
+            break;
+        }
+    }
 }
 
 public static void printBoard(char[][] gameBoard) {
@@ -42,6 +54,8 @@ public static void printBoard(char[][] gameBoard) {
         }
         System.out.println();
     }
+
+    System.out.println();
 }
 
 public static void updateBoard(int position, int player, char[][] gameBoard) {
@@ -120,7 +134,7 @@ public static void playerMove(char[][] gameBoard) {
         move = input.nextInt();
         result = isValidMove(move, gameBoard);
     }
-
+    
     System.out.println("Il giocatore ha selezionato la casella " + move);
     updateBoard(move, 1, gameBoard);
 }
@@ -200,20 +214,118 @@ public static boolean isValidMove(int move, char[][] gameBoard) {
 public static void computerMove(char[][] gameBoard) {
 
     Random rand = new Random();
+    int move = rand.nextInt(9)+1;
 
-    int pcMove = rand.nextInt(9)+1;
-
-    boolean result =isValidMove(pcMove, gameBoard);
+    boolean result = isValidMove(move, gameBoard);
 
     while (!result) {
 
-        int move = rand.nextInt(9)+1;
+        move = rand.nextInt(9)+1;
         result =isValidMove(move, gameBoard);
     }
 
-    System.out.println("Il computer ha scelto la casella " + pcMove);
-    updateBoard(pcMove, 2, gameBoard);
+    System.out.println("Il computer ha scelto la casella " + move);
+    updateBoard(move, 2, gameBoard);
 }
 
+public static boolean isGameOver(char[][] gameBoard) {
 
+    //Horizontal win
+    if(gameBoard[0][0] == 'X' && gameBoard[0][2] == 'X' && gameBoard[0][4] == 'X') {
+
+        System.out.println("Il giocatore ha vinto!");
+        return true;
+    }
+    if(gameBoard[0][0] == 'O' && gameBoard[0][2] == 'O' && gameBoard[0][4] == 'O') {
+
+        System.out.println("Il computer ha vinto!");
+        return true;
+    }
+    if(gameBoard[1][0] == 'X' && gameBoard[1][2] == 'X' && gameBoard[1][4] == 'X') {
+
+        System.out.println("Il giocatore ha vinto!");
+        return true;
+    }
+    if(gameBoard[1][0] == 'O' && gameBoard[1][2] == 'O' && gameBoard[1][4] == 'O') {
+
+        System.out.println("Il computer ha vinto!");
+        return true;
+    }
+    if(gameBoard[2][0] == 'X' && gameBoard[2][2] == 'X' && gameBoard[2][4] == 'X') {
+
+        System.out.println("Il giocatore ha vinto!");
+        return true;
+    }
+    if(gameBoard[2][0] == 'O' && gameBoard[2][2] == 'O' && gameBoard[2][4] == 'O') {
+
+        System.out.println("Il computer ha vinto!");
+        return true;
+    }
+
+    //Vertical win
+    if(gameBoard[0][0] == 'X' && gameBoard[1][0] == 'X' && gameBoard[2][0] == 'X') {
+
+        System.out.println("Il giocatore ha vinto!");
+        return true;
+    }
+    if(gameBoard[0][0] == 'O' && gameBoard[1][0] == 'O' && gameBoard[2][0] == 'O') {
+
+        System.out.println("Il computer ha vinto!");
+        return true;
+    }
+    if(gameBoard[0][2] == 'X' && gameBoard[1][2] == 'X' && gameBoard[2][2] == 'X') {
+
+        System.out.println("Il giocatore ha vinto!");
+        return true;
+    }
+    if(gameBoard[0][2] == 'O' && gameBoard[1][2] == 'O' && gameBoard[2][2] == 'O') {
+
+        System.out.println("Il computer ha vinto!");
+        return true;
+    }
+    if(gameBoard[0][4] == 'X' && gameBoard[1][4] == 'X' && gameBoard[2][4] == 'X') {
+
+        System.out.println("Il giocatore ha vinto!");
+        return true;
+    }
+    if(gameBoard[0][4] == 'O' && gameBoard[1][4] == 'O' && gameBoard[2][4] == 'O') {
+
+        System.out.println("Il computer ha vinto!");
+        return true;
+    }
+
+    //Diagonal wins
+    if(gameBoard[0][0] == 'X' && gameBoard[1][2] == 'X' && gameBoard[2][4] == 'X') {
+
+        System.out.println("Il giocatore ha vinto!");
+        return true;
+    }
+    if(gameBoard[0][0] == 'O' && gameBoard[1][2] == 'O' && gameBoard[2][4] == 'O') {
+
+        System.out.println("Il computer ha vinto!");
+        return true;
+    }
+    if(gameBoard[2][0] == 'X' && gameBoard[1][2] == 'X' && gameBoard[0][4] == 'X') {
+
+        System.out.println("Il giocatore ha vinto!");
+        return true;
+    }
+    if(gameBoard[2][0] == 'O' && gameBoard[1][2] == 'O' && gameBoard[0][4] == 'O') {
+
+        System.out.println("Il computer ha vinto!");
+        return true;
+    }
+
+    // Tie condition
+
+    if (gameBoard[0][0] != '_' && gameBoard[0][2] != '_' && gameBoard[0][4] != '_' &&
+        gameBoard[1][0] != '_' && gameBoard[1][2] != '_' && gameBoard[1][4] != '_' &&
+        gameBoard[2][0] != ' ' && gameBoard[2][2] != ' ' && gameBoard[2][4] != ' ' ){
+           
+            System.out.println("Pareggio!");
+            return true;
+    }
+
+    return false;
+}
 }
